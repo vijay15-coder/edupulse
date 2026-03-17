@@ -1,0 +1,303 @@
+SUPERADMIN SETTINGS PANEL - FUNCTIONALITY EXPLANATION
+====================================================
+
+File Source:
+- pages/SuperAdmin/Settings.tsx
+- lib/superadminSettings.ts (API/data actions used by the page)
+
+
+1) ACCESS CONTROL
+-----------------
+- Only users with role SUPERADMIN can open this page.
+- If a non-superadmin opens it, access is denied and an error message is shown.
+
+
+2) INITIAL DATA LOAD (ON PAGE OPEN)
+-----------------------------------
+When the page loads, it fetches all settings in parallel:
+- Platform settings
+- Subscription plans
+- Feature flags
+- Role permissions
+- Security settings
+- Academic settings
+- Notification settings
+- Legal settings
+- System settings
+- Latest 25 audit logs
+
+Behavior:
+- A loading spinner is shown until data is fetched.
+- If data exists, the form state is populated.
+- First subscription plan is auto-selected for editing.
+- Any API error shows a toast error.
+
+
+3) LEFT SIDEBAR NAVIGATION (SECTIONS)
+-------------------------------------
+Available sections:
+1. Platform General Settings
+2. College Default Settings
+3. Subscription & Billing Settings
+4. Role & Permission Settings
+5. Security Settings
+6. Feature Toggle System
+7. Academic Settings
+8. Storage & File Settings
+9. Notification Settings
+10. Legal & Compliance Settings
+11. Monitoring & Log Settings
+12. System Control Settings
+
+Notes:
+- Platform General + College Defaults share one combined form.
+- Storage/Monitoring/System Control share one System Settings form, with extra action buttons in System Control.
+
+
+4) PLATFORM + COLLEGE DEFAULT SETTINGS
+--------------------------------------
+Purpose:
+- Configure global branding and default behavior for new colleges.
+
+Fields:
+- Platform name
+- Support email
+- Logo URL
+- Default timezone
+- Default currency
+- Language
+- White-label enabled
+- Trial period days
+- Default subscription plan
+- Auto approval for colleges
+- Email verification required
+- Auto-suspend enabled
+
+Save Behavior:
+- Save button: "Save Platform Settings"
+- Validates support email format before save.
+- If invalid, save is blocked with an error toast.
+- On success, data is upserted to platform_settings and success toast appears.
+
+
+5) SUBSCRIPTION & BILLING SETTINGS
+----------------------------------
+Purpose:
+- Create, edit, and delete subscription plans.
+
+Plan Selection:
+- Existing plans appear as chips/buttons.
+- Clicking a plan loads it into editable draft.
+- "+ New Plan" creates a default draft with starter values.
+
+Editable Fields:
+- Plan code
+- Plan name
+- Price
+- Max students
+- Max faculty
+- Storage limit (GB)
+- Grace period (days)
+- Tax (%)
+- Currency
+- Feature access list (comma-separated input)
+- Payment gateway config (JSON textarea)
+
+Save Behavior:
+- Save button: "Save Plan"
+- Uses idempotent save by plan_code:
+  - If editing existing plan (id present): update by id.
+  - If no id but same plan_code exists: update existing by plan_code.
+  - Otherwise insert new plan.
+- Duplicate plan_code is handled with a clear user-friendly error.
+
+Delete Behavior:
+- Delete button: "Delete Plan"
+- Deletes selected plan.
+- Reloads plans list and reselects first available plan if any.
+
+
+6) ROLE & PERMISSION SETTINGS
+-----------------------------
+Purpose:
+- Define module access rights per role.
+
+Inputs:
+- Role name
+- Module name
+- CRUD toggles:
+  - Create
+  - Read
+  - Update
+  - Delete
+
+Actions:
+- Save Permission: inserts or updates a role permission row.
+- Delete (per table row): removes that permission row.
+
+Display:
+- Permission table with role, module, and compact CRUD summary.
+
+
+7) FEATURE TOGGLE SYSTEM
+------------------------
+Purpose:
+- Enable/disable product features by scope.
+
+Inputs:
+- Feature key (from feature catalog)
+- Scope type: GLOBAL / PLAN / COLLEGE
+- Enabled toggle
+- Plan selector (only for PLAN scope)
+- College ID input (only for COLLEGE scope)
+
+Action:
+- Save Feature Flag: inserts or updates feature flag.
+
+Display:
+- Feature flags table with feature, scope, and enabled status.
+
+
+8) SECURITY SETTINGS
+--------------------
+Purpose:
+- Configure platform-wide security policy defaults.
+
+Configurable fields:
+- Password minimum length
+- Session timeout minutes
+- Max login attempts
+- Account lock duration minutes
+- JWT expiry minutes
+- API rate limit per minute
+- Require strong password (toggle)
+- Enable 2FA (toggle)
+
+Action:
+- Save Security: upserts one global security settings row.
+
+
+9) ACADEMIC SETTINGS
+--------------------
+Purpose:
+- Configure academic policy defaults.
+
+Fields:
+- Default grading system
+- Minimum attendance percentage
+- Academic year start month
+- Academic year end month
+- Semester duration (months)
+- Attendance lock after days
+
+Action:
+- Save Academic: upserts one global academic settings row.
+
+
+10) SYSTEM SETTINGS (STORAGE + MONITORING + CONTROL)
+-----------------------------------------------------
+Shown in these sidebar sections:
+- Storage & File Settings
+- Monitoring & Log Settings
+- System Control Settings
+
+Common editable fields:
+- Max upload size (MB)
+- Backup frequency (hourly/daily/weekly/monthly)
+- Enable audit logs
+- Log retention days
+- Failed login alert threshold
+- Suspicious activity alerts
+- Performance monitoring
+- Maintenance mode
+- Maintenance message
+
+Action:
+- Save System Settings: upserts one global system settings row.
+
+Extra controls (only in System Control section):
+- Clear Cache
+- Recalculate Analytics
+- Manual Backup
+
+Control behavior:
+- Each button triggers a control action and writes request timestamps in system settings.
+- Audit logs are reloaded after each action.
+
+
+11) NOTIFICATION SETTINGS
+-------------------------
+Purpose:
+- Configure global communication preferences.
+
+Fields/toggles:
+- Email notifications enabled
+- SMS notifications enabled
+- Push notifications enabled
+- Global broadcast enabled
+- Maintenance announcement (text)
+- Global broadcast message (text)
+
+Action:
+- Save Notifications: upserts one global notification settings row.
+
+
+12) LEGAL & COMPLIANCE SETTINGS
+-------------------------------
+Purpose:
+- Manage legal policy text and compliance toggles.
+
+Fields:
+- GDPR enabled
+- User data export enabled
+- Terms & Conditions
+- Privacy Policy
+- Data retention policy
+- Account deletion policy
+
+Action:
+- Save Legal: upserts one global legal settings row.
+
+
+13) AUDIT LOGS PANEL
+--------------------
+Purpose:
+- Show latest administrative changes for traceability.
+
+Display:
+- Latest 25 entries
+- Columns: Time, Entity, Action, Actor
+- Actor shows user id or "system"
+
+Source:
+- Loaded on initial page load.
+- Reloaded after system control actions.
+
+
+14) TOAST FEEDBACK & ERROR HANDLING
+-----------------------------------
+- Every save/action shows success or error toast.
+- Known schema-cache/table-missing errors are transformed into actionable messages:
+  "Missing table public.<table_name>. Run SUPERADMIN_SETTINGS_SCHEMA.sql in Supabase SQL Editor, then refresh PostgREST schema cache."
+
+
+15) DATA MODEL PATTERN USED BY THIS PAGE
+----------------------------------------
+- "Single global settings row" pattern is used for:
+  security_settings, academic_settings, notification_settings, legal_settings, system_settings.
+- Global row is identified by college_id = NULL.
+- If global row exists: update it.
+- If not: insert a new global row.
+
+
+16) QUICK OPERATION FLOW (SUMMARY)
+----------------------------------
+1. Superadmin opens page.
+2. All settings are fetched.
+3. User edits fields in one section.
+4. User clicks save/action button.
+5. API function writes to Supabase.
+6. Toast confirms success or shows meaningful error.
+
+
+END OF DOCUMENT

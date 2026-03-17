@@ -1,0 +1,314 @@
+PERCENTAGE FORMULA AND CGPA FORMULA - COMPLETE GUIDE
+======================================================
+
+This document explains how to calculate percentage and CGPA, with formulas, examples, and implementation details.
+
+
+===========================================
+1) PERCENTAGE FORMULA
+===========================================
+
+A. SIMPLE PERCENTAGE FORMULA
+-----------------------------
+
+Formula:
+    Percentage = (Obtained Marks / Total Marks) × 100
+
+Example 1 (Single Subject):
+- Student scored: 75 out of 100
+- Percentage = (75 / 100) × 100 = 75%
+
+Example 2 (Multiple Subjects - Weighted Average):
+- Subject 1: Scored 80 out of 100 (Weight: 30%)
+- Subject 2: Scored 70 out of 100 (Weight: 40%)
+- Subject 3: Scored 90 out of 100 (Weight: 30%)
+
+Weighted Percentage = (80 × 0.30) + (70 × 0.40) + (90 × 0.30)
+                    = 24 + 28 + 27
+                    = 79%
+
+B. CUMULATIVE PERCENTAGE (Overall Score)
+-----------------------------------------
+
+Formula:
+    Total Percentage = (Total Marks Obtained / Total Maximum Marks) × 100
+
+Example:
+- Total marks obtained across all subjects: 345
+- Total maximum marks across all subjects: 500
+
+Total Percentage = (345 / 500) × 100 = 69%
+
+C. SEMESTER/YEAR PERCENTAGE
+----------------------------
+
+Formula:
+    Semester Percentage = (Total Marks in Semester / Total Possible Marks in Semester) × 100
+
+Example (Semester with 5 subjects):
+- Subject 1: 80/100
+- Subject 2: 75/100
+- Subject 3: 85/100
+- Subject 4: 90/100
+- Subject 5: 70/100
+
+Total = 80 + 75 + 85 + 90 + 70 = 400
+Maximum = 100 × 5 = 500
+
+Semester Percentage = (400 / 500) × 100 = 80%
+
+
+===========================================
+2) CGPA FORMULA (CUMULATIVE GRADE POINT AVERAGE)
+===========================================
+
+A. 10-POINT CGPA SCALE
+----------------------
+
+Grade Point Scale (Most Common in India):
+- A+: 10 points (90-100%)
+- A:  9 points (80-89%)
+- B+: 8 points (70-79%)
+- B:  7 points (60-69%)
+- C+: 6 points (50-59%)
+- C:  5 points (40-49%)
+- D:  4 points (Below 40%)
+- F:  0 points (Failed/Below threshold)
+
+Formula:
+    CGPA = Σ (Grade Points × Credit Hours) / Σ (Total Credit Hours)
+
+Example (Semester with 5 subjects):
+- Subject 1: Grade A+ (10), Credit Hours: 4
+- Subject 2: Grade A (9), Credit Hours: 3
+- Subject 3: Grade B+ (8), Credit Hours: 4
+- Subject 4: Grade A (9), Credit Hours: 3
+- Subject 5: Grade B (7), Credit Hours: 2
+
+Calculation:
+Step 1: Multiply each grade point by its credit hours:
+  S1: 10 × 4 = 40
+  S2: 9 × 3 = 27
+  S3: 8 × 4 = 32
+  S4: 9 × 3 = 27
+  S5: 7 × 2 = 14
+
+Step 2: Sum all weighted grades:
+  Total Weighted Points = 40 + 27 + 32 + 27 + 14 = 140
+
+Step 3: Sum all credit hours:
+  Total Credit Hours = 4 + 3 + 4 + 3 + 2 = 16
+
+Step 4: Calculate CGPA:
+  CGPA = 140 / 16 = 8.75 out of 10
+
+
+B. 4-POINT CGPA SCALE
+---------------------
+
+Grade Point Scale (Used in USA, Canada, etc.):
+- A:  4.0 points (90-100%)
+- A-: 3.7 points (87-89%)
+- B+: 3.3 points (83-86%)
+- B:  3.0 points (80-82%)
+- B-: 2.7 points (77-79%)
+- C+: 2.3 points (73-76%)
+- C:  2.0 points (70-72%)
+- C-: 1.7 points (67-69%)
+- D+: 1.3 points (63-66%)
+- D:  1.0 points (60-62%)
+- F:  0.0 points (Below 60%)
+
+Formula: SAME AS 10-POINT
+    CGPA = Σ (Grade Points × Credit Hours) / Σ (Total Credit Hours)
+
+Example (Semester with 3 subjects):
+- Subject 1: Grade A (4.0), Credit Hours: 3
+- Subject 2: Grade B+ (3.3), Credit Hours: 4
+- Subject 3: Grade B (3.0), Credit Hours: 3
+
+Calculation:
+Step 1: Multiply each grade point by its credit hours:
+  S1: 4.0 × 3 = 12.0
+  S2: 3.3 × 4 = 13.2
+  S3: 3.0 × 3 = 9.0
+
+Step 2: Sum all weighted grades:
+  Total Weighted Points = 12.0 + 13.2 + 9.0 = 34.2
+
+Step 3: Sum all credit hours:
+  Total Credit Hours = 3 + 4 + 3 = 10
+
+Step 4: Calculate CGPA:
+  CGPA = 34.2 / 10 = 3.42 out of 4.0
+
+
+C. CONVERTING PERCENTAGE TO CGPA (10-POINT SCALE)
+---------------------------------------------------
+
+If you have percentage and want CGPA:
+
+Simple Linear Conversion:
+    CGPA = Percentage / 10
+
+Example:
+- Percentage: 75%
+- CGPA (10-point) = 75 / 10 = 7.5
+
+Formula with Grade Brackets:
+If Percentage >= 90: CGPA = 10
+If Percentage >= 80: CGPA = 9
+If Percentage >= 70: CGPA = 8
+If Percentage >= 60: CGPA = 7
+If Percentage >= 50: CGPA = 6
+If Percentage >= 40: CGPA = 5
+If Percentage < 40:  CGPA = 0
+
+
+D. CONVERTING PERCENTAGE TO CGPA (4-POINT SCALE)
+--------------------------------------------------
+
+Simple Linear Conversion:
+    CGPA = (Percentage / 100) × 4
+
+Example:
+- Percentage: 85%
+- CGPA (4-point) = (85 / 100) × 4 = 3.4
+
+Formula with Grade Brackets:
+If Percentage >= 90: CGPA = 4.0
+If Percentage >= 85: CGPA = 3.7
+If Percentage >= 80: CGPA = 3.3
+If Percentage >= 75: CGPA = 3.0
+... and so on
+
+
+E. OVERALL/CUMULATIVE CGPA (Across Multiple Semesters)
+-------------------------------------------------------
+
+Formula:
+    Overall CGPA = Σ (Semester CGPA × Semester Credits) / Σ (Total Semester Credits)
+
+Example (3 Semesters):
+- Semester 1: CGPA 7.8, Total Credits 16
+- Semester 2: CGPA 8.2, Total Credits 16
+- Semester 3: CGPA 7.9, Total Credits 16
+
+Calculation:
+Step 1: Multiply each semester CGPA by its credits:
+  S1: 7.8 × 16 = 124.8
+  S2: 8.2 × 16 = 131.2
+  S3: 7.9 × 16 = 126.4
+
+Step 2: Sum all weighted semester GPA:
+  Total = 124.8 + 131.2 + 126.4 = 382.4
+
+Step 3: Sum all semester credits:
+  Total Credits = 16 + 16 + 16 = 48
+
+Step 4: Calculate Overall CGPA:
+  Overall CGPA = 382.4 / 48 = 7.967 ≈ 8.0
+
+
+===========================================
+3) IMPLEMENTATION IN EDUPULSE
+===========================================
+
+A. SELECTING CGPA FORMAT DURING COLLEGE ONBOARDING
+---------------------------------------------------
+
+When SuperAdmin creates a college, they select:
+1. CGPA Format: 10-POINT | 4-POINT | PERCENTAGE
+2. Grade mapping is stored in academic_settings.cgpa_format
+
+This setting controls how grades are calculated and displayed throughout the college's portal.
+
+
+B. CALCULATION HELPER FUNCTIONS
+--------------------------------
+
+The system uses calculation utilities available in:
+- lib/calculations.ts (frontend)
+- backend/src/utils/calculations.ts (server-side)
+
+Available functions:
+
+1. calculatePercentage(obtainedMarks, totalMarks)
+   Returns: percentage as number
+
+2. convertPercentageToCGPA10(percentage)
+   Returns: CGPA on 10-point scale
+
+3. convertPercentageToCGPA4(percentage)
+   Returns: CGPA on 4-point scale
+
+4. calculateCGPAFromGrades(gradePointsWithCredits)
+   Input: [{gradePoints: 10, creditHours: 4}, ...]
+   Returns: calculated CGPA
+
+5. calculateOverallCGPA(semesterCGPAsWithCredits)
+   Input: [{cgpa: 8.5, credits: 16}, ...]
+   Returns: overall CGPA
+
+
+C. STORING AND RETRIEVING CALCULATIONS
+---------------------------------------
+
+When a student's marks are entered:
+1. Percentage is calculated immediately
+2. Grade is assigned based on percentage + CGPA format
+3. CGPA is calculated from grades and credit hours
+4. Results are stored in marks table
+5. Displayed in student's results/grades page
+
+
+===========================================
+4) QUICK REFERENCE TABLE
+===========================================
+
+PERCENTAGE TO GRADE (10-POINT SCALE):
+90-100%  →  A+  (10)
+80-89%   →  A   (9)
+70-79%   →  B+  (8)
+60-69%   →  B   (7)
+50-59%   →  C+  (6)
+40-49%   →  C   (5)
+Below 40% → F   (0)
+
+PERCENTAGE TO GRADE (4-POINT SCALE):
+90-100%  →  A   (4.0)
+87-89%   →  A-  (3.7)
+83-86%   →  B+  (3.3)
+80-82%   →  B   (3.0)
+77-79%   →  B-  (2.7)
+73-76%   →  C+  (2.3)
+70-72%   →  C   (2.0)
+67-69%   →  C-  (1.7)
+Below 60% → F   (0.0)
+
+
+===========================================
+5) COMMON MISTAKES TO AVOID
+===========================================
+
+1. Forgetting to divide by 100 when converting percentage to decimal
+   ❌ Wrong: CGPA = percentage × 4
+   ✅ Right: CGPA = (percentage / 100) × 4
+
+2. Not using credit hours in CGPA calculation
+   ❌ Wrong: CGPA = Sum of grades / number of subjects
+   ✅ Right: CGPA = Sum(grade × credits) / Sum(all credits)
+
+3. Mixing percentage and CGPA scales without conversion
+   ❌ Don't compare 75% (percentage) with 3.5 (4-point CGPA) directly
+   ✅ Convert both to same scale first
+
+4. Forgetting attendance threshold multiplier
+   Some colleges reduce percentage if attendance is below minimum
+   ✅ Formula: Final % = Percentage × (attendance% / 100) if attendance < threshold
+
+5. Not accounting for pass/fail conditions
+   ✅ Always check if marks >= 40% (or college minimum) before awarding grade
+
+
+END OF DOCUMENT

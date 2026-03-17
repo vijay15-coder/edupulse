@@ -1,0 +1,7 @@
+{
+  "name": "EduPulse College Management System",
+  "description": "A comprehensive college management system featuring role-based dashboards for Students, Faculty, and Admins with attendance tracking, grading, and timetable management.",
+  "requestFramePermissions": [
+    "camera"
+  ]
+}
